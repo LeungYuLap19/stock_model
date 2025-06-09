@@ -72,3 +72,21 @@ stock_prediction_project/
 ├── .gitignore                              # Files/directories to exclude from Git
 ├── README.md                               # Project overview, setup instructions, how to run
 └── LICENSE                                 # (Optional) Licensing info
+
+Init Project Plan
+
+- 1st Stage: 
+AAPL Stock Prediction
+5 years daily data
+Aplha Vantage API
+
+- Goals: 
+1. stock price range at curtain point (High and Low)
+2. K-line trend (Up/Down/Flat)
+
+- Model:
+Multi Task Model
+1. LSTM + 2 heads (regression + classification)
+2. Linear + softmax
+3. Huber Loss + cross entropy
+4. AdamW
