@@ -2,6 +2,8 @@ import os
 import requests
 import logging
 import time
+import pandas as pd
+from io import StringIO 
 from datetime import date, timedelta
 from config import (
   ALPHA_VANTAGE_API_KEY,
@@ -21,6 +23,7 @@ class IntradayFetcher:
   def __init__(self):
     self.symbol = None
     self.months = 6
+    self.raw_data_dir = RAW_DATA_DIR
     os.makedirs(RAW_DATA_DIR, exist_ok=True)
 
   def run(self):
@@ -49,12 +52,11 @@ class IntradayFetcher:
 
   def _fetch_api(self):
     today = date.today()
+    all_dfs = []
 
     for i in range(self.months):
       month_date = (today.replace(day=1) - timedelta(days=30 * i))
       month_str = month_date.strftime("%Y-%m")
-
-      print(ALPHA_VANTAGE_API_KEY)
 
       params = {
         "function": DEFAULT_FUNCTION,
@@ -76,14 +78,28 @@ class IntradayFetcher:
           logger.error(f"Failed to fetch data for {self.symbol} ({month_str}): Status {response.status_code}")
           continue
 
-        file_path = os.path.join(RAW_DATA_DIR, f"{self.symbol}_{month_str}.csv")
-        with open(file_path, "w", encoding="utf-8") as f:
-          f.write(response.text)
+        df = pd.read_csv(StringIO(response.text))
+        all_dfs.append(df)
 
-        logger.info(f"Saved raw data to {file_path}")
-
+        logger.info(f"✔️ Loaded {len(df)} rows for {month_str}")
         time.sleep(12)
 
       except Exception as e:
         logger.error(f"Error fetching data for {self.symbol} ({month_str}): {e}")
         continue
+
+    if all_dfs:
+      self.dataframe = pd.concat(all_dfs, ignore_index=True)
+
+      if "timestamp" in self.dataframe.columns:
+        self.dataframe['timestamp'] = pd.to_datetime(self.dataframe['timestamp'], errors='coerce')
+        self.dataframe = self.dataframe.sort_values(by='timestamp').reset_index(drop=True)
+
+      path = os.path.join(self.raw_data_dir, f"{self.symbol}.csv")
+      try:
+        self.dataframe.to_csv(path, index=False)
+        logger.info(f"✅ Merged data saved to {path}")
+      except Exception as e:
+        logger.error(f"Failed to save merged CSV: {e}")
+    else:
+        logger.warning("⚠️ No data collected to merge.")

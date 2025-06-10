@@ -10,27 +10,25 @@ class Visualizer:
     self.report_figures_dv_dir = REPORT_FIGURES_DV_DIR
     os.makedirs(self.report_figures_dv_dir, exist_ok=True)
 
-  def run(self, filename: str):
-    df = self._load_csv(filename=filename)
-    self._plot_closing_price(
-      df=df,
-      symbol=filename.split('_')[0],
-      save_name=filename + "_fig.png"
-    )
+  def run(self):
+    csv_files = [
+      f for f in os.listdir(self.raw_data_dir)
+      if f.endswith(".csv") and os.path.isfile(os.path.join(self.raw_data_dir, f))
+    ]
 
-  def run_all(self):
-    csv_files = [f for f in os.listdir(self.raw_data_dir) if f.endswith(".csv")]
     if not csv_files:
-      print("⚠️ No CSV files found in RAW_DATA_DIR.")
+      print("❌ No CSV files found in the raw data directory.")
       return
 
-    for filename in csv_files:
+    for file_name in csv_files:
       try:
-        print(f"📈 Visualizing: {filename}")
-        self.run(filename)
+        df = self._load_csv(file_name)
+        symbol = file_name.split(".")[0]
+        save_name = f"{symbol}_closing_price.png"
+        self._plot_closing_price(df, symbol, save_name)
       except Exception as e:
-        print(f"❌ Error visualizing {filename}: {e}")
-    
+        print(f"❌ Failed to generate plot for {file_name}: {e}")
+
   def _load_csv(self, filename: str) -> pd.DataFrame:
     filepath = os.path.join(self.raw_data_dir, filename)
     if not os.path.exists(filepath):
