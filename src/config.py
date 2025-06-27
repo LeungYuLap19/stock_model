@@ -11,10 +11,12 @@ DEFAULT_OUTPUT_SIZE = "full"
 DEFAULT_DATATYPE = "csv"
 
 # --- Model Hyperparameters ---
+SEQUENCE_LENGTH = 12 # The look back window (e.g., 12×15min = 3 hours)  
 HORIZON = 4 # Predict 4 time steps ahead (e.g., 4×15min = 1 hour ahead)
+TEST_SIZE=0.15
+VAL_SIZE=0.15
+RANDOM_STATE=42
 
-# SEQUENCE_LENGTH = 
-# SEQUENCE_LENGTH = 
 # LSTM_UNITS = 
 # DROPOUT_RATE = 
 # LEARNING_RATE = 

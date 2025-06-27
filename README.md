@@ -77,7 +77,7 @@ Init Project Plan
 
 - 1st Stage: 
 AAPL Stock Prediction
-5 years daily data
+6 months daily data
 Aplha Vantage API
 
 - Goals: 

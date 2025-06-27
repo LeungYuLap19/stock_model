@@ -1,17 +1,47 @@
+from InquirerPy import prompt
 from data_ingestion.fetch_data import IntradayFetcher
 from utils.helpers import Visualizer
 from feature_engineering.create_features import FeaturesCreator
 from data_ingestion.preprocess_raw_data import Preprocessor
+from models.model_pipelines import ModelPipelines
 
 if __name__ == "__main__":
-  # fetcher = IntradayFetcher()
-  # fetcher.run()
+  questions = [
+    {
+      "type": "list",
+      "name": "operation",
+      "message": "Select an operation:",
+      "choices": [
+        "Fetch - Preprocess",
+        "Split - Train",
+        "Exit"
+      ]
+    }
+  ]
 
-  # features_creator = FeaturesCreator()
-  # features_creator.run()
+  while True:
+    answer = prompt(questions)['operation']
 
-  # visualizer = Visualizer()
-  # visualizer.run()
+    if answer == "Fetch - Preprocess":
+      fetcher = IntradayFetcher()
+      fetcher.run()
 
-  preprocessor = Preprocessor()
-  preprocessor.run()
+      features_creator = FeaturesCreator()
+      features_creator.run()
+
+      visualizer = Visualizer()
+      visualizer.run()
+
+      preprocessor = Preprocessor()
+      preprocessor.run()
+
+    elif answer == "Split - Train":
+      model_pipelines = ModelPipelines()
+      model_pipelines.run()
+
+    elif answer == "Exit":
+      print("Exiting.")
+      break
+  
+
+
