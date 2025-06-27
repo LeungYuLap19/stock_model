@@ -8,7 +8,6 @@ class Visualizer:
   def __init__(self):
     self.raw_data_dir = RAW_DATA_DIR
     self.report_figures_dv_dir = REPORT_FIGURES_DV_DIR
-    os.makedirs(self.report_figures_dv_dir, exist_ok=True)
 
   def run(self):
     csv_files = [

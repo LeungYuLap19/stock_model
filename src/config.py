@@ -11,6 +11,8 @@ DEFAULT_OUTPUT_SIZE = "full"
 DEFAULT_DATATYPE = "csv"
 
 # --- Model Hyperparameters ---
+HORIZON = 4 # Predict 4 time steps ahead (e.g., 4×15min = 1 hour ahead)
+
 # SEQUENCE_LENGTH = 
 # SEQUENCE_LENGTH = 
 # LSTM_UNITS = 
@@ -27,3 +29,15 @@ MODELS_DIR = "models/"
 REPORT_FIGURES_DV_DIR = "reports/figures/data_visualizations/"
 REPORT_FIGURES_MR_DIR = "reports/figures/model_results"
 SCALER_PARAMS_PATH = "data/processed/scaler_params.pkl"
+
+# --- Others ---
+PRED_HL_SELECTED_FEATURES = [
+  'timestamp',
+  'open', 'high', 'low', 'close', 'volume',
+  'EMA_10', 'EMA_20',
+  'MACD', 'MACD_signal', 'MACD_diff',
+  'RSI_14', 'ROC_12', 'MOM_10', 'Williams_%R',
+  'ATR_14', 'Volatility_20', 'BB_width',
+  'OBV', 'CMF_20', 'VROC_12',
+  'Close_Open_Ratio', 'High_Low_Ratio', 'Typical_Price'
+]

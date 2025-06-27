@@ -24,7 +24,6 @@ class IntradayFetcher:
     self.symbol = None
     self.months = 6
     self.raw_data_dir = RAW_DATA_DIR
-    os.makedirs(RAW_DATA_DIR, exist_ok=True)
 
   def run(self):
     self._user_input()
