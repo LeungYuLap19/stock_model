@@ -3,7 +3,7 @@ from data_ingestion.fetch_data import IntradayFetcher
 from utils.helpers import Visualizer
 from feature_engineering.create_features import FeaturesCreator
 from data_ingestion.preprocess_raw_data import Preprocessor
-from models.model_pipelines import ModelPipelines
+from models.model_pipelines import ModelPipeline
 
 if __name__ == "__main__":
   questions = [
@@ -36,7 +36,7 @@ if __name__ == "__main__":
       preprocessor.run()
 
     elif answer == "Split - Train":
-      model_pipelines = ModelPipelines()
+      model_pipelines = ModelPipeline()
       model_pipelines.run()
 
     elif answer == "Exit":

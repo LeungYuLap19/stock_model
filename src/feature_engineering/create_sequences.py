@@ -29,7 +29,7 @@ class SequencesCreator:
     X, y = [], []
     for i in range(len(self.df) - self.sequence_length - self.horizon):
       x_seq = self.df[i:i + self.sequence_length].copy()
-      y_target = self.df.iloc[i + self.sequence_length + self.horizon - 1][['high', 'low']].copy()
+      y_target = self.df.iloc[i + self.sequence_length + self.horizon - 1][['close']].copy()
       X.append(x_seq.values)
       y.append(y_target.values)
 

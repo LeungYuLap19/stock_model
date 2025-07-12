@@ -90,3 +90,4 @@ Multi Task Model
 2. Linear + softmax
 3. Huber Loss + cross entropy
 4. AdamW
+

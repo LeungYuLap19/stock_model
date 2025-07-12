@@ -12,16 +12,21 @@ DEFAULT_DATATYPE = "csv"
 
 # --- Model Hyperparameters ---
 SEQUENCE_LENGTH = 12 # The look back window (e.g., 12×15min = 3 hours)  
-HORIZON = 4 # Predict 4 time steps ahead (e.g., 4×15min = 1 hour ahead)
-TEST_SIZE=0.15
-VAL_SIZE=0.15
-RANDOM_STATE=42
+HORIZON = 2 # Predict 4 time steps ahead (e.g., 4×15min = 1 hour ahead)
+TEST_SIZE = 0.15
+VAL_SIZE = 0.15
+RANDOM_STATE = 42
 
-# LSTM_UNITS = 
-# DROPOUT_RATE = 
-# LEARNING_RATE = 
-# BATCH_SIZE = 
-# EPOCHS = 
+INPUT_SIZE = 22
+HIDDEN_SIZE = 64
+OUTPUT_SIZE = 2
+NUM_LAYERS = 2
+DROPOUT_RATE = 0.2
+
+LEARNING_RATE = 1e-3
+EPOCHS = 100
+WEIGHT_DECAY = 1e-4
+BATCH_SIZE = 32
 # EARLY_STOPPING_PATIENCE = 
 
 # --- File Paths ---
