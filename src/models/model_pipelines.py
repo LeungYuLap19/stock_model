@@ -46,7 +46,8 @@ class ModelPipeline:
     print("  4. Save model after training")
 
     while True:
-      symbol = input("Enter stock symbol: ").strip().upper()
+      # symbol = input("Enter stock symbol: ").strip().upper()
+      symbol = "AAPL"
       if not symbol:
         print("❌ Symbol cannot be empty.")
         continue
