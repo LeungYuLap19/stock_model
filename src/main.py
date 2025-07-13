@@ -6,42 +6,45 @@ from data_ingestion.preprocess_raw_data import Preprocessor
 from models.model_pipelines import ModelPipeline
 
 if __name__ == "__main__":
-  questions = [
-    {
-      "type": "list",
-      "name": "operation",
-      "message": "Select an operation:",
-      "choices": [
-        "Fetch - Preprocess",
-        "Split - Train",
-        "Exit"
-      ]
-    }
-  ]
+  model_pipelines = ModelPipeline()
+  model_pipelines.run()
 
-  while True:
-    answer = prompt(questions)['operation']
+  # questions = [
+  #   {
+  #     "type": "list",
+  #     "name": "operation",
+  #     "message": "Select an operation:",
+  #     "choices": [
+  #       "Fetch - Preprocess",
+  #       "Split - Train",
+  #       "Exit"
+  #     ]
+  #   }
+  # ]
 
-    if answer == "Fetch - Preprocess":
-      fetcher = IntradayFetcher()
-      fetcher.run()
+  # while True:
+  #   answer = prompt(questions)['operation']
 
-      features_creator = FeaturesCreator()
-      features_creator.run()
+  #   if answer == "Fetch - Preprocess":
+  #     fetcher = IntradayFetcher()
+  #     fetcher.run()
 
-      visualizer = Visualizer()
-      visualizer.run()
+  #     features_creator = FeaturesCreator()
+  #     features_creator.run()
 
-      preprocessor = Preprocessor()
-      preprocessor.run()
+  #     visualizer = Visualizer()
+  #     visualizer.run()
 
-    elif answer == "Split - Train":
-      model_pipelines = ModelPipeline()
-      model_pipelines.run()
+  #     preprocessor = Preprocessor()
+  #     preprocessor.run()
 
-    elif answer == "Exit":
-      print("Exiting.")
-      break
+  #   elif answer == "Split - Train":
+  #     model_pipelines = ModelPipeline()
+  #     model_pipelines.run()
+
+  #   elif answer == "Exit":
+  #     print("Exiting.")
+  #     break
   
 
 
